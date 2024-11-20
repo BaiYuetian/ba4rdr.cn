@@ -1,0 +1,69 @@
+    
+    :root{
+        --backcolor: #282828;
+        --fontcolor: #D8D8D8;
+    }
+    
+    
+    html{
+        background-color: var(--backcolor,#282828);
+        
+    }
+    #eat_p{
+        text-align: center;
+        background-color: var(--backcolor,#282828);
+        color: var(--fontcolor,#D8D8D8);
+    }
+
+#eat_btn {
+	display:inline-block;
+	padding:0 25px;
+	outline:0;
+	border:3px solid #ddd;
+	border-radius:25px;
+	background:var(--backcolor,#282828);
+	color:#fff;
+	vertical-align:middle;
+	font-size:19px;
+	font-family:"Microsoft YaHei";
+	line-height:2;
+	cursor:pointer;
+	transition:.5s;
+	-webkit-appearance:none;
+    -moz-appearance: none;
+    position: absolute;  
+    bottom: 0;  
+    left: 50%;  
+    transform: translateX(-50%); 
+}
+#eat_btn:hover {
+	border:3px solid #ccc;
+	background: #000;
+}
+#food_show p{
+    text-align: center;
+    color: var(--fontcolor,#D8D8D8);
+}
+p{
+    color: var(--fontcolor,#D8D8D8);
+}
+h2{
+    background-color: var(--backcolor,#282828);
+    color: var(--fontcolor,#D8D8D8);
+}
+h3{
+    background-color: var(--backcolor,#282828);
+    color: var(--fontcolor,#D8D8D8);
+}
+li{
+    color: var(--fontcolor,#D8D8D8);
+}
+
+footer {  
+    background-color: var(--backcolor,#282828);  
+    color:var(--fontcolor,#D8D8D8); 
+    text-align: center;  
+    padding: 10px;  
+    bottom: 0;  
+    width: 100%;  
+} 

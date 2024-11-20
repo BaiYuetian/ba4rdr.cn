@@ -1,134 +1,110 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <style>
-        body {
-            font-family: Arial, "微软雅黑", sans-serif;
-        }
-        .countdown,
-        #today {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1em;
-            min-height: 50px;
-        }
-    </style>
-</head>
-<body>
-    <h1 id="today"></h1>
-    <h2><div class="countdown" id="countdown1"></div></h2>
-    <h3><div class="countdown" id="countdown2"></div></h3>
-    <h4><div class="countdown" id="countdown3"></div></h4>
-
-    <script>
-        function formatTime(time) {
-            return time < 10 ? `0${time}` : `${time}`;
-        }
-
-        function daysHoursMinutesSecondsFromNow(year) {
-            const today = new Date();
-            const targetDate = new Date(year, 6, 29);
-            const diff = targetDate - today;
-
-            if (diff <= 0) {
-                return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-            }
-
-            const secondsInADay = 24 * 60 * 60;
-            const secondsInAnHour = 60 * 60;
-            const secondsInAMinute = 60;
-
-            const seconds = Math.floor(diff / 1000) % secondsInAMinute;
-            const minutes = Math.floor(diff / (1000 * secondsInAMinute)) % 60;
-            const hours = Math.floor(diff / (1000 * secondsInAnHour)) % 24;
-            const days = Math.floor(diff / (1000 * secondsInADay));
-
-            return { days, hours, minutes, seconds };
-        }
-
-        function displayCountdown(year, elementId) {
-            const countdownElement = document.getElementById(elementId);
-            const { days, hours, minutes, seconds } = daysHoursMinutesSecondsFromNow(year);
-
-            countdownElement.textContent = `GAI`;
-        }
-
-        function updateCountdowns() {
-            const currentYear = new Date().getFullYear();
-            displayCountdown(currentYear + 1, "countdown1");
-            displayCountdown(currentYear + 2, "countdown2");
-            displayCountdown(currentYear + 3, "countdown3");
-        }
-
-        function getRandomColor() {
-            const letters = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
-
-        function subtractColor(baseColor, subtractColor) {
-            // 将颜色转换为数字数组
-            const baseArray = parseInt(baseColor.slice(1), 16);
-            const subtractArray = parseInt(subtractColor.slice(1), 16);
-            // 计算新颜色值
-            const result = baseArray - subtractArray;
-            const clampedResult = Math.max(0,  result);
-            // 转换回十六进制
-            const resultString = '#' + ('000000' + clampedResult.toString(16)).slice(-6);
-            return resultString;
-        }
-
-        function applyColorToElements(color) {
-            const elements = document.querySelectorAll('.countdown, #today');
-            elements.forEach(element => {
-                element.style.color = color;
-            });
-            document.body.style.backgroundColor = subtractColor("#FFFFFF", color);
-        }
-
-        function iFtody() {
-            const today = new Date();
-            const color = getRandomColor();
-            applyColorToElements(color);
-
-            if (today.getMonth() === 6 && today.getDate() === 29) { 
-                const todayElement = document.getElementById("today");
-                todayElement.style.color = color;
-                todayElement.textContent = `BA4RDR`;
-                
-                return true;
-            }
-
-            
-            return false;
-        }
-
-        function updateTextSize() {
-            const elements = document.querySelectorAll('.countdown');
-            elements.forEach(element => {
-                const fontSize = Math.floor(Math.random() * 20) + 12; // 生成12到31之间的随机数作为字体大小
-                element.style.fontSize = `${fontSize}px`; // 设置元素的字体大小
-            });
-        }
-
-        // 在页面加载时更新倒计时
-        updateCountdowns();
-        iFtody();
-        updateTextSize();
-
-        // 每秒更新倒计时和文本大小
-        setInterval(function(){
-            updateCountdowns();
-            iFtody();
-            updateTextSize();
-        }, 1000);
-    </script>
-</body>
+<!DOCTYPE html>  
+<html lang="zh-CN">  
+<head>  
+    <meta charset="UTF-8">  
+    <title>网站主页</title>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="stylesheet" type="text/css" href="css/styles.css">  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
+    <script src="js/script.js"></script>  
+</head>  
+<body onload="showTimeMsg()">  
+    <a id="header_page"></a>
+    <div id="header_date_div">
+        <h1 id="firstPageText" style="text-align: center;"></h1>  
+    </div>
+    <header>  
+        <br/>
+        
+     <nav id = "header_nav">  
+        <ul>  
+            <li><a href="#">首页</a></li>  
+            <li><a href="#aboutUs">关于</a></li>  
+            <li><a id = "eat_1" href="eat.html" target="_blank">EAT</a></li>             
+            <li>
+                <div class="search-container">  
+                    <form action="/search" method="get">  
+                      <input type="text" id="search-input" name="q" placeholder="搜索...">  
+                      <button type="submit" id="search-button">搜索</button>  
+                    </form>  
+                  </div> 
+            </li>
+        </ul>  
+    </nav>   
+    </header>  
+      
+    <div class="sidebar" style="color: wheat;">   
+        <h2>侧边栏</h2>  
+        <ul >  
+            <li><a style="color: rgb(217, 186, 129);" href= "#header_page" >顶部</a></li>  
+            <li><a style="color: rgb(217, 186, 129);" href= "#aboutUs">关于</a></li>  
+            <li><a style="color: rgb(217, 186, 129);" href= "#footer_page">底部</a></li> 
+            <!-- 添加更多侧边栏链接 -->  
+        </ul>  
+    </div>  
+    <main>     
+        <a id="aboutUs"></a>  
+        <h2>关于</h2>  
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
+        <p>此网站创建于...</p> <!-- 添加具体的创建时间 -->  
+    </main>  
+    <div id="copyright">  
+         <a id="footer_page"></a>
+    <footer> 
+        <br/>
+        <div>
+            <a href="https://lcwo.net/"  target="_blank">LCWO</a>
+            <a href="http://www.crac.org.cn/" target="_blank">CRAC</a>
+            <a href="https://ham.c5r.app/callsign-dictation" target="_blank">呼号听写</a>
+        </div>
+        <p>版权所有 &copy; <br/>未经许可，禁止复制、转载、摘编或以其他方式使用。</p>  
+        <p id="qw"></p> <!-- 此部分可能用于显示时间戳或其他动态内容 -->  
+    </footer>  
+   <script>
+    // ***放入js文件无效***
+// 初始时header_nav不固定  
+var headerNav = document.getElementById('header_nav');  
+var firstPageText = document.getElementById('firstPageText');  
+var headerNavTop = headerNav.getBoundingClientRect().top;  
+var fixedClass = 'fixed';  
+  
+window.addEventListener('scroll', function() {  
+  var scrollTop = window.pageYOffset || document.documentElement.scrollTop;  
+  var firstPageTextTop = firstPageText.getBoundingClientRect().top;  
+  
+  // 当header_nav移动到firstPageText的位置或更下方时，固定header_nav  
+  if (scrollTop >= headerNavTop) {  
+    headerNav.classList.add(fixedClass);  
+  } else {  
+    // 否则，取消固定header_nav  
+    headerNav.classList.remove(fixedClass);  
+  }  
+});  
+</script>
+</body>  
 </html>
+         
+         
