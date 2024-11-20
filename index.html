@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        body {
+            font-family: Arial, "微软雅黑", sans-serif;
+        }
+        .countdown,
+        #today {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1em;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="today"></h1>
+    <h2><div class="countdown" id="countdown1"></div></h2>
+    <h3><div class="countdown" id="countdown2"></div></h3>
+    <h4><div class="countdown" id="countdown3"></div></h4>
+
+    <script>
+        function formatTime(time) {
+            return time < 10 ? `0${time}` : `${time}`;
+        }
+
+        function daysHoursMinutesSecondsFromNow(year) {
+            const today = new Date();
+            const targetDate = new Date(year, 6, 29);
+            const diff = targetDate - today;
+
+            if (diff <= 0) {
+                return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+            }
+
+            const secondsInADay = 24 * 60 * 60;
+            const secondsInAnHour = 60 * 60;
+            const secondsInAMinute = 60;
+
+            const seconds = Math.floor(diff / 1000) % secondsInAMinute;
+            const minutes = Math.floor(diff / (1000 * secondsInAMinute)) % 60;
+            const hours = Math.floor(diff / (1000 * secondsInAnHour)) % 24;
+            const days = Math.floor(diff / (1000 * secondsInADay));
+
+            return { days, hours, minutes, seconds };
+        }
+
+        function displayCountdown(year, elementId) {
+            const countdownElement = document.getElementById(elementId);
+            const { days, hours, minutes, seconds } = daysHoursMinutesSecondsFromNow(year);
+
+            countdownElement.textContent = `GAI`;
+        }
+
+        function updateCountdowns() {
+            const currentYear = new Date().getFullYear();
+            displayCountdown(currentYear + 1, "countdown1");
+            displayCountdown(currentYear + 2, "countdown2");
+            displayCountdown(currentYear + 3, "countdown3");
+        }
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function subtractColor(baseColor, subtractColor) {
+            // 将颜色转换为数字数组
+            const baseArray = parseInt(baseColor.slice(1), 16);
+            const subtractArray = parseInt(subtractColor.slice(1), 16);
+            // 计算新颜色值
+            const result = baseArray - subtractArray;
+            const clampedResult = Math.max(0,  result);
+            // 转换回十六进制
+            const resultString = '#' + ('000000' + clampedResult.toString(16)).slice(-6);
+            return resultString;
+        }
+
+        function applyColorToElements(color) {
+            const elements = document.querySelectorAll('.countdown, #today');
+            elements.forEach(element => {
+                element.style.color = color;
+            });
+            document.body.style.backgroundColor = subtractColor("#FFFFFF", color);
+        }
+
+        function iFtody() {
+            const today = new Date();
+            const color = getRandomColor();
+            applyColorToElements(color);
+
+            if (today.getMonth() === 6 && today.getDate() === 29) { 
+                const todayElement = document.getElementById("today");
+                todayElement.style.color = color;
+                todayElement.textContent = `BA4RDR`;
+                
+                return true;
+            }
+
+            
+            return false;
+        }
+
+        function updateTextSize() {
+            const elements = document.querySelectorAll('.countdown');
+            elements.forEach(element => {
+                const fontSize = Math.floor(Math.random() * 20) + 12; // 生成12到31之间的随机数作为字体大小
+                element.style.fontSize = `${fontSize}px`; // 设置元素的字体大小
+            });
+        }
+
+        // 在页面加载时更新倒计时
+        updateCountdowns();
+        iFtody();
+        updateTextSize();
+
+        // 每秒更新倒计时和文本大小
+        setInterval(function(){
+            updateCountdowns();
+            iFtody();
+            updateTextSize();
+        }, 1000);
+    </script>
+</body>
+</html>
