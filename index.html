@@ -1,110 +1,25 @@
-<!DOCTYPE html>  
-<html lang="zh-CN">  
-<head>  
-    <meta charset="UTF-8">  
-    <title>BA4RDR的网站主页</title>  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <link rel="stylesheet" type="text/css" href="css/styles.css">  
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
-    <script src="js/script.js"></script>  
-</head>  
-<body onload="showTimeMsg()">  
-    <a id="header_page"></a>
-    <div id="header_date_div">
-        <h1 id="firstPageText" style="text-align: center;"></h1>  
-    </div>
-    <header>  
-        <br/>
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <title>ba4rdr的伪网站</title>
+        <style>
+            body{
+                background-color: rgb(36, 36, 36);
+                color: white;
+            }
+            a {  
+                /* text-decoration: none; 移除下划线 */  
+                color: white
+                ;
+            }
+        </style>
+    </head>
+    <body>
         
-     <nav id = "header_nav">  
-        <ul>  
-            <li><a href="#">首页</a></li>  
-            <li><a href="#aboutUs">关于</a></li>  
-            <li><a id = "eat_1" href="eat.html" target="_blank">EAT</a></li>             
-            <li>
-                <div class="search-container">  
-                    <form action="/search" method="get">  
-                      <input type="text" id="search-input" name="q" placeholder="搜索...">  
-                      <button type="submit" id="search-button">搜索</button>  
-                    </form>  
-                  </div> 
-            </li>
-        </ul>  
-    </nav>   
-    </header>  
-      
-    <div class="sidebar" style="color: wheat;">   
-        <h2>侧边栏</h2>  
-        <ul >  
-            <li><a style="color: rgb(217, 186, 129);" href= "#header_page" >顶部</a></li>  
-            <li><a style="color: rgb(217, 186, 129);" href= "#aboutUs">关于</a></li>  
-            <li><a style="color: rgb(217, 186, 129);" href= "#footer_page">底部</a></li> 
-            <!-- 添加更多侧边栏链接 -->  
-        </ul>  
-    </div>  
-    <main>     
-        <a id="aboutUs"></a>  
-        <h2>关于</h2>  
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
-        <p>此网站创建于...</p> <!-- 添加具体的创建时间 -->  
-    </main>  
-    <div id="copyright">  
-         <a id="footer_page"></a>
-    <footer> 
-        <br/>
-        <div>
-            <a href="https://lcwo.net/"  target="_blank">LCWO</a>
-            <a href="http://www.crac.org.cn/" target="_blank">CRAC</a>
-            <a href="https://ham.c5r.app/callsign-dictation" target="_blank">呼号听写</a>
-        </div>
-        <p>版权所有 &copy; <br/>未经许可，禁止复制、转载、摘编或以其他方式使用。</p>  
-        <p id="qw"></p> <!-- 此部分可能用于显示时间戳或其他动态内容 -->  
-    </footer>  
-   <script>
-    // ***放入js文件无效***
-// 初始时header_nav不固定  
-var headerNav = document.getElementById('header_nav');  
-var firstPageText = document.getElementById('firstPageText');  
-var headerNavTop = headerNav.getBoundingClientRect().top;  
-var fixedClass = 'fixed';  
-  
-window.addEventListener('scroll', function() {  
-  var scrollTop = window.pageYOffset || document.documentElement.scrollTop;  
-  var firstPageTextTop = firstPageText.getBoundingClientRect().top;  
-  
-  // 当header_nav移动到firstPageText的位置或更下方时，固定header_nav  
-  if (scrollTop >= headerNavTop) {  
-    headerNav.classList.add(fixedClass);  
-  } else {  
-    // 否则，取消固定header_nav  
-    headerNav.classList.remove(fixedClass);  
-  }  
-});  
-</script>
-</body>  
+                 <p>项目正在构建中。。</p>
+                 <p>在<a href="https://github.com/BaiYuetian/ba4rdr.cn" target="_blank">GitHub</a>上查看本项目</p>
+                 <a href="https://www.qrz.com/db/BA4RDR" target="_blank">在QRZ上寻找BA4RDR</a><br>
+                 <a href="https://hamcq.cn/BA4RDR" target="_blank">在HamCq上寻找BA4RDR</a>
+    </body>
 </html>
-         
-         
