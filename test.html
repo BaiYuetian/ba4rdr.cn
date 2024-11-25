@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f0f0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+ 
+            div {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            }
+ 
+            #ipt {
+                width: 80%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-sizing: border-box;
+                font-size: 16px;
+            }
+ 
+            button {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                background-color: #007BFF;
+                color: #fff;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+ 
+            button:hover {
+                background-color: #0056b3;
+            }
+ 
+            #show {
+                /*margin-top: 20px;
+                font-size: 16px;
+                color: #333;*/
+                width: 300px;        /* 设置最大宽度 */
+    height: 200px;       /* 设置最大高度 */
+    border: 1px solid #000; /* 可选：添加边框以便更清楚地看到div的边界 */
+    overflow: auto;      /* 当内容超出尺寸时添加滚动条 */
+    padding: 10px;  
+            }
+        </style>
+        <script type="text/javascript">
+            var stBo = false;
+                var strDict = {
+                    "A": ["Alpha"],
+                    "B": ["Bravo"],
+                    "C": ["Charlie"],
+                    "D": ["Delta"],
+                    "E": ["Echo"],                                                                          
+                    "F": ["Foxtrot"],                                            
+                    "G": ["Golf"],  
+                    "H": ["Hotel"],                                            
+                    "I": ["India"],                                            
+                    "J": ["Juliet"],                                            
+                    "K": ["Kilo"],                                            
+                    "L": ["Lima"],                                            
+                    "M": ["Mike"],                                            
+                    "N": ["November"],                                            
+                    "O": ["Oscar"],                                            
+                    "P": ["Papa"],                                            
+                    "Q": ["Quebec"],
+                    "R": ["Romeo"],                                            
+                    "S": ["Sierra"],                                            
+                    "T": ["Tango"],                                            
+                    "U": ["Uniform"],                                            
+                    "V": ["Victor"],                                                                                        
+                    "W": ["Whiskey"],                                            
+                    "X": ["X-ray"],                                            
+                    "Y": ["Yankee"],                                            
+                    "Z": ["Zulu"]}
+    
+
+                var numDict = {
+                    "0":"zero",
+                    "1":"one",
+                    "2":"two",
+                    "3":"three",
+                    "4":"four",
+                    "5":"five",
+                    "6":"six",
+                    "7":"seven",
+                    "8":"eight",
+                    "9":"nine"};
+
+            function retENG(st){
+                if(/^[A-Z]$/.test(st)){
+                    //  字母
+                    var lst = strDict[st]
+                    return lst[0] + " ";
+               }else if(/^[0-9]$/.test(st)){
+                    //  数字
+                    return numDict[st] + " ";
+                   }
+                return "";
+
+
+                
+                // console.log("12"); // 输出 true 或 false
+            }
+            function button_slot() {
+                var inputValue = document.getElementById("ipt").value; // 获取输入框的值
+                var result = "";
+                for (var i = 0; i < inputValue.length; i++) {
+                    var char = inputValue.charAt(i); 
+                    if(char == "7" && inputValue.charAt(i+1)=="3"){
+                        stBo = true;
+                        result += "seventy-three ";
+                        continue;
+                    }else if(stBo){
+                        stBo = false;
+                       continue;
+                    }
+                    result += retENG(char.toUpperCase()); 
+                }
+                document.getElementById("show").textContent = result;//.trim(); 
+        }
+            
+        </script>
+    </head>
+    <body>
+        <div>
+            <input type="text" id="ipt">
+            <button onclick="button_slot()">click</button>
+            <p id="show"></p>
+        </div>
+    </body>
+</html>
