@@ -38,7 +38,7 @@
             margin-top: 50px;
         }
 
-      .snowflake {
+     .snowflake {
             position: absolute;
             top: -20px;
             width: 20px;
@@ -158,11 +158,17 @@
                     element.msRequestFullscreen();
                 }
             }
-            // 比如添加一个按钮来触发全屏，示例如下
+
+            // 创建全屏按钮
             var fullScreenButton = document.createElement('button');
             fullScreenButton.textContent = '全屏显示';
-            fullScreenButton.addEventListener('click', fullScreen);
+            fullScreenButton.addEventListener('click', function () {
+                fullScreen();
+                // 点击按钮后隐藏按钮，这里使用style的display属性设置为none来隐藏
+                fullScreenButton.style.display = 'none';
+            });
             document.body.appendChild(fullScreenButton);
+
             init();
         };
     </script>
@@ -174,4 +180,3 @@
 </body>
 
 </html>
-
