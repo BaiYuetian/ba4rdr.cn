@@ -167,16 +167,36 @@
             });
             document.body.appendChild(fullScreenButton);
 
+            // 用于存储唤醒锁对象
+            let wakeLock = null;
+
             // 监听全屏状态变化事件
             document.addEventListener('fullscreenchange', function () {
                 if (document.fullscreenElement) {
                     // 如果处于全屏状态，隐藏按钮
                     fullScreenButton.style.display = 'none';
+                    // 请求屏幕唤醒锁，阻止熄屏
+                    requestWakeLock();
                 } else {
                     // 如果退出全屏状态，显示按钮
                     fullScreenButton.style.display = 'block';
+                    // 释放唤醒锁
+                    if (wakeLock) {
+                        wakeLock.release().then(() => {
+                            wakeLock = null;
+                        });
+                    }
                 }
             });
+
+            // 定义请求唤醒锁的函数
+            async function requestWakeLock() {
+                try {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                } catch (err) {
+                    console.error('获取唤醒锁失败: ', err);
+                }
+            }
 
             init();
         };
