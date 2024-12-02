@@ -164,10 +164,19 @@
             fullScreenButton.textContent = '全屏显示';
             fullScreenButton.addEventListener('click', function () {
                 fullScreen();
-                // 点击按钮后隐藏按钮，这里使用style的display属性设置为none来隐藏
-                fullScreenButton.style.display = 'none';
             });
             document.body.appendChild(fullScreenButton);
+
+            // 监听全屏状态变化事件
+            document.addEventListener('fullscreenchange', function () {
+                if (document.fullscreenElement) {
+                    // 如果处于全屏状态，隐藏按钮
+                    fullScreenButton.style.display = 'none';
+                } else {
+                    // 如果退出全屏状态，显示按钮
+                    fullScreenButton.style.display = 'block';
+                }
+            });
 
             init();
         };
