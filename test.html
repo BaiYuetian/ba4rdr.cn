@@ -5,14 +5,21 @@
             body {
                 font-family: Arial, sans-serif;
                 background-color: #f0f0f0;
-                display: flex;
+                /*display: flex;*/
                 justify-content: center;
                 align-items: center;
                 height: 100vh;
                 margin: 0;
             }
  
-            div {
+            #ExplainTheWord {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            }
+            #morse {
                 background-color: #fff;
                 padding: 20px;
                 border-radius: 10px;
@@ -29,7 +36,15 @@
                 box-sizing: border-box;
                 font-size: 16px;
             }
- 
+            #ipt_morse {
+                width: 80%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-sizing: border-box;
+                font-size: 16px;
+            }
             button {
                 padding: 10px 20px;
                 border: none;
@@ -46,14 +61,28 @@
             }
  
             #show {
-                /*margin-top: 20px;
+                margin-top: 20px;
                 font-size: 16px;
-                color: #333;*/
-                width: 300px;        /* 设置最大宽度 */
-    height: 200px;       /* 设置最大高度 */
-    border: 1px solid #000; /* 可选：添加边框以便更清楚地看到div的边界 */
-    overflow: auto;      /* 当内容超出尺寸时添加滚动条 */
-    padding: 10px;  
+                color: #333;
+                width: 100%; /* 占满整个父容器的宽度 */
+                max-width: 300px; /* 设置最大宽度 */
+                height: 200px;
+                border: 1px solid #000;
+                overflow: auto;
+                padding: 10px;
+                word-wrap: break-word; /* 防止长单词溢出 */
+            }
+            #show_morse {
+                margin-top: 20px;
+                font-size: 16px;
+                color: #333;
+                width: 100%; /* 占满整个父容器的宽度 */
+                max-width: 300px; /* 设置最大宽度 */
+                height: 200px;
+                border: 1px solid #000;
+                overflow: auto;
+                padding: 10px;
+                word-wrap: break-word; /* 防止长单词溢出 */
             }
         </style>
         <script type="text/javascript">
@@ -129,16 +158,114 @@
                     }
                     result += retENG(char.toUpperCase()); 
                 }
+                if(result == ""){
+                    result = "错误";
+                }
                 document.getElementById("show").textContent = result;//.trim(); 
         }
+        function getMorseCodeFromEnglish(st) {
+                 switch (st.toUpperCase()) {
+        case 'A': return ".-";
+        case 'B': return "-...";
+        case 'C': return "-.-.";
+        case 'D': return "-..";
+        case 'E': return ".";
+        case 'F': return "..-.";
+        case 'G': return "--.";
+        case 'H': return "....";
+        case 'I': return "..";
+        case 'J': return ".---";
+        case 'K': return "-.-";
+        case 'L': return ".-..";
+        case 'M': return "--";
+        case 'N': return "-.";
+        case 'O': return "---";
+        case 'P': return ".--.";
+        case 'Q': return "--.-";
+        case 'R': return ".-.";
+        case 'S': return "...";
+        case 'T': return "-";
+        case 'U': return "..-";
+        case 'V': return "...-";
+        case 'W': return ".--";
+        case 'X': return "-..-";
+        case 'Y': return "-.--";
+        case 'Z': return "--..";
+        case '0': return "-----";
+        case '1': return ".----";
+        case '2': return "..---";
+        case '3': return "...--";
+        case '4': return "....-";
+        case '5': return ".....";
+        case '6': return "-....";
+        case '7': return "--...";
+        case '8': return "---..";
+        case '9': return "----.";
+        default: return ""; 
+                }
+            }
             
+            function btnMorse_slot() {
+               //
+            var p = document.getElementById("show_morse");
+            var va=document.getElementById("ipt_morse").value;
+                var ipt="";
+                for(var i=0;i<va.length;i++){
+                    var t =va[i];
+                    ipt = ipt+getMorseCodeFromEnglish(t) +" ";
+                }
+                if(ipt == ""){
+                    ipt = "错误";
+                }
+                p.textContent=ipt;
+            }
+        async function copyTextToClipboard(text) {
+            if(text == "错误"){
+                alert("暂不支持复制空文本");
+                return;
+            }
+    try {
+        await navigator.clipboard.writeText(text);
+        console.log('文本已复制到剪贴板');
+    } catch (err) {
+        console.error('文本复制失败: ', err);
+    }
+}
         </script>
     </head>
     <body>
-        <div>
-            <input type="text" id="ipt">
-            <button onclick="button_slot()">click</button>
+        <div id="ExplainTheWord">
+            <h2>=>解释单词</h2>
+            <input type="text" id="ipt" onkeydown="if (event.keyCode == 13) button_slot()">
+            <div>
+                <button onclick="button_slot()">转换</button>
+                <button onclick="document.getElementById('ipt').value = ''">清空</button>
+                <button onclick="copyTextToClipboard(document.getElementById('show').textContent)">复制</button>
+            </div>
             <p id="show"></p>
         </div>
+        
+        
+        <div id="morse">
+             <h2>=>摩斯电码</h2>
+            <input type="text" id="ipt_morse" onkeydown="if (event.keyCode == 13) btnMorse_slot()">
+            <div>
+                <button onclick="btnMorse_slot()">转换</button>
+                <button onclick="document.getElementById('ipt_morse').value = ''">清空</button>
+                <button onclick="copyTextToClipboard(document.getElementById('show_morse').textContent)">复制</button>
+            </div>
+            <p id="show_morse"></p>
+        </div>
+        <footer>
+            <a href="../index.html">返回</a>
+        </footer>
     </body>
 </html>
+<!--
+2024/12/23
+    无法居中文本框
+
+-->
+<!--
+ba4rdr 
+-->
