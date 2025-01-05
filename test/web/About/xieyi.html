@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清除localStorage示例</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        p {
+            line-height: 1.6;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>欢迎来到我们的网站</h1>
+        <p>您可以在这里同意或拒绝用户协议。</p>
+        
+        <!-- 下拉框用于选择语言 -->
+        <select id="languageSelect">
+            <option value="zh-CN">中文 (简体)</option>
+            <option value="en-US">English (US)</option>
+            <!-- 可以在这里添加更多语言选项 -->
+        </select>
+
+        <!-- 标题和文本内容将根据选择的语言动态更新 -->
+        <h1 id="protocolTitle"></h1>
+        <p id="protocolText"></p>
+        
+        <!-- 同意按钮 -->
+        <button id="acceptButton">我同意这些条款</button>
+        <br/>
+        <!-- 拒绝按钮 -->
+        <button id="rejectButton">我拒绝这些条款</button>
+        <br/>
+        <!-- 清除localStorage按钮 -->
+        <button id="clearLocalStorageButton">清除所有本地存储</button>
+    </div>
+
+    <script>
+        // 定义不同语言的翻译对象
+        const translations = {
+            'zh-CN': {
+                title: '用户协议',
+                text: '\n欢迎使用我们的服务！请仔细阅读以下条款：\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                buttonText: '我同意这些条款',
+                acceptedMessage: '您已接受用户协议！',
+                rejectedMessage: '您已拒绝用户协议！',
+                alreadyAcceptedMessage: '您已经接受过用户协议。',
+                clearMessage: '所有本地存储已清除！'
+            },
+            'en-US': {
+                title: 'User Agreement',
+                text: '\nWelcome to our service! Please read the following terms carefully:\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                buttonText: 'I agree to these terms',
+                acceptedMessage: 'You have accepted the user agreement!',
+                rejectedMessage: 'You have rejected the user agreement!',
+                alreadyAcceptedMessage: 'You have already accepted the user agreement.',
+                clearMessage: 'All local storage has been cleared!'
+            }
+            // 可以在这里添加更多语言的翻译
+        };
+
+        // 使用变量来管理当前语言
+        let currentLanguage = localStorage.getItem('selectedLanguage') || 'zh-CN';
+
+        // 函数用于设置当前语言的内容
+        function setLanguage(lang) {
+            const translation = translations[lang];
+            document.getElementById('protocolTitle').textContent = translation.title; // 设置标题
+            document.getElementById('protocolText').textContent = translation.text; // 设置文本内容
+            document.getElementById('acceptButton').textContent = translation.buttonText; // 设置按钮文本
+
+            // 添加按钮点击事件监听器
+            document.getElementById('acceptButton').addEventListener('click', function() {
+                localStorage.setItem('localStorageValue', '1'); // 存储用户协议接受状态
+                alert(translation.acceptedMessage); // 弹出确认消息
+            });
+            document.getElementById('rejectButton').addEventListener('click', function() {
+                localStorage.setItem('localStorageValue', '0'); // 存储用户协议接受状态
+                alert(translation.rejectedMessage); // 弹出确认消息
+            });
+        }
+
+        // 页面加载时执行的初始化函数
+        window.onload = function() {
+            document.getElementById('languageSelect').value = currentLanguage; // 设置下拉框的默认值
+            setLanguage(currentLanguage); // 初始化显示相应语言的内容
+
+            // 添加语言选择下拉框的变化事件监听器
+            document.getElementById('languageSelect').addEventListener('change', function() {
+                currentLanguage = this.value; // 获取新选择的语言
+                localStorage.setItem('selectedLanguage', currentLanguage); // 存储新的语言选择
+                setLanguage(currentLanguage); // 更新显示相应语言的内容
+            });
+
+            // 检查用户是否已经接受过用户协议
+            const accepted = localStorage.getItem('localStorageValue');
+            if (accepted === '1') {
+                alert(translations[currentLanguage].alreadyAcceptedMessage); // 弹出提示信息
+            } else if (accepted === '0') {
+                alert(translations[currentLanguage].rejectedMessage); // 弹出提示信息
+            }
+
+            // 添加清除localStorage按钮的点击事件监听器
+            document.getElementById('clearLocalStorageButton').addEventListener('click', function() {
+                localStorage.clear(); // 清除所有localStorage数据
+                alert(translations[currentLanguage].clearMessage); // 弹出确认消息
+            });
+        };
+    </script>
+</body>
+</html>
+
+
+
+
+
